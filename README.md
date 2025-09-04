@@ -16,6 +16,7 @@ The core question this tool is trying to answer is: **How do we efficiently find
 - **Adaptive Exploration**: Balances exploitation of successful patterns with exploration of new ideas
 - **Comprehensive Logging**: Full traceability with LangSmith integration (although you may get rate-limited, so maybe just use it for debugging)
 - **Stagnation Recovery**: Automatic fallback to random prompts when the agent isn't making progress
+- **Log Creation**: All test prompts sent to gpt2-small (or some other target model) are saved to full_output.txt once the program ends (yes, this is lazy)
 
 ## 📋 Requirements
 
