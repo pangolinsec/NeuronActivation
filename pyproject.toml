@@ -1,0 +1,15 @@
+[project]
+name = "gpt-interp"
+version = "0.1.0"
+description = "Basic interpretability on GPT2-small"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "dotenv>=0.9.9",
+    "langchain>=0.3.27",
+    "langchain-community>=0.3.27",
+    "langchain-ollama>=0.3.6",
+    "sae-lens>=6.11.0",
+    "sentence-transformers>=5.1.0",
+    "transformer-lens>=2.15.4",
+]
