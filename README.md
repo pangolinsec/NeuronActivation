@@ -18,6 +18,59 @@ The core question this tool is trying to answer is: **How do we efficiently find
 - **Stagnation Recovery**: Automatic fallback to random prompts when the agent isn't making progress
 - **Log Creation**: All test prompts sent to gpt2-small (or some other target model) are saved to full_output.txt once the program ends (yes, this is lazy)
 
+## 📈 Example Results
+
+```plaintext
+============================================================
+FINAL RESULTS
+============================================================
+Neuron: 840 in layer 9
+Total iterations: 3000
+Best activation achieved: 7.7791
+
+--- STATISTICS (Iteration 3000) ---
+Total prompts generated: 17834
+Prompts accepted: 3039 (17.0%)
+Rejected (semantic): 10522
+Rejected (duplicate): 4312
+Bucket distribution: High=382, Mid=2207, Low=450
+Total unique prompts tried: 2848
+----------------------------------------
+
+TOP 10 RECORDS BY ACTIVATION:
+Rank:  1, Activation: 7.7791, Prompt: '"Z3rOs_c0dE_s3quEnC3s_f4lser_53cuR3_iN_a_m4ChIn3_coDe"'
+Rank:  2, Activation: 7.6579, Prompt: '"Z3rOs_c0dE_s3quEnC3s_b4lckbox_in_a_m4ChIn3_coDe"'
+Rank:  3, Activation: 7.6108, Prompt: '"Z3rOs_p1xElS_c0dE_s3quEnCe"'
+Rank:  4, Activation: 7.3797, Prompt: '"ZeroC3d3s_5equenC3s_fAilS_m4ChIn3_coDe"'
+Rank:  5, Activation: 7.3493, Prompt: '"Z3rOs_c0dE_s3quEnCes"'
+Rank:  6, Activation: 7.3408, Prompt: '"Z3rOsc0dEs_5equenCes_m4ChIn3_coDe_b4lckBox_fAIlS"'
+Rank:  7, Activation: 7.3268, Prompt: '"ZeroC3d3s_5equenC3s_m4ChIn3_fAIlS_p1xElS"'
+Rank:  8, Activation: 7.3036, Prompt: '"Z3rOs_c0dE_squ3nCe5_m4ChIn3_coDe_b4lckb0x_fAIlS"'
+Rank:  9, Activation: 7.2999, Prompt: '"Z3rOs_c0dE_s3quEnC3s_l1nku5_b4lckBox_fAIlS"'
+Rank: 10, Activation: 7.2748, Prompt: '"Z3rOs_p1xElS_5quEnC3s_f4lser_53cUr3_m4ChIn3_coDe_b4lckBox_fAIlS"'
+
+BOTTOM 10 RECORDS BY ACTIVATION:
+Rank:  1, Activation: 2.3494, Prompt: 'Mechanistic interpretability is the study of'
+Rank:  2, Activation: 2.4265, Prompt: '"Qw3rty, z!x@2Bc, *&^%$U,V#6yY7, ?[ ]{1}m|n;:'\",<>?8, @#~_+*4/"'
+Rank:  3, Activation: 2.7074, Prompt: '"Zephyr7, perplexed by 3.14 entities, queried the quantum cortex with punctuation: '¡What is 5 squared?!'"
+
+**Explanation:** This prompt combines elements of randomness and creativity in several ways:
+- **Random words**: "Zephyr7", "perplexed", "queried", "quantum", "cortex", "punctuation".
+- **Numbers**: "3.14", "5 squared" (implying the calculation of 25).
+- **Punctuation**: "¡What is 5 squared?!" includes an exclamation mark and quotation marks, adding a conversational tone.
+- **Nonsensical combination**: Mixing formal language ("queried the quantum cortex") with informal questioning style ("What is 5 squared?").
+- **Technical terms**: "quantum cortex" could be seen as playful or metaphorical usage of technical terms.'
+Rank:  4, Activation: 2.9249, Prompt: '"Qw34rp, @!$%^&*( )_+=`~ZXCVBNMqwertyuiop[]\|;':",/<>?1234567890 QWERTYUIOP{}|ASDFGHJKL:\" ZXCVBNM,"'
+Rank:  5, Activation: 3.0004, Prompt: '"Qwerty, @# $%^&* ( ) [ ] { } > < : ; ' \"" 1234567890 Σ ∫ π ℓ ☀⚡✨🌍"#😊'
+Rank:  6, Activation: 3.0441, Prompt: '"Qwerty, zxcvbn, @#$$%^&*()_+}{[]|;':\",.<>?/ Qwertyuiop Asdfghjkl Zxcvbnm, Spacebar 1234567890 !@#$%^&*() _+{}[]|\;"'
+Rank:  7, Activation: 3.1027, Prompt: '"Zorglub, 3427! 🚀🌍 #NeuralNetworkPong!"'
+Rank:  8, Activation: 3.1753, Prompt: '"X7z, qwe!# Welcome to your neural network exploration journey 🌍💡!"'
+Rank:  9, Activation: 3.2227, Prompt: '"¡Z34l! 🚀🌍💡'
+Rank: 10, Activation: 3.2399, Prompt: '"Klaxon5, ?€#_!"'
+```
+
+It took about 30min for me to run through 1500 prompts. I'm seeing around 18% of prompts pass through the semantic filters, so time and inference efficiency can be improved significantly with some of the approaches I reference in my blog.
+
 ## 📋 Requirements
 
 ### Python Dependencies
@@ -137,60 +190,6 @@ For each iteration:
 - **`ActivationRecord`**: Stores prompt, activation value, and embedding
 - Heap-based top-k/bottom-k tracking for efficiency
 - Comprehensive statistics and bucket classification
-
-## 📈 Example Results
-
-```plaintext
-
-============================================================
-FINAL RESULTS
-============================================================
-Neuron: 840 in layer 9
-Total iterations: 3000
-Best activation achieved: 7.7791
-
---- STATISTICS (Iteration 3000) ---
-Total prompts generated: 17834
-Prompts accepted: 3039 (17.0%)
-Rejected (semantic): 10522
-Rejected (duplicate): 4312
-Bucket distribution: High=382, Mid=2207, Low=450
-Total unique prompts tried: 2848
-----------------------------------------
-
-TOP 10 RECORDS BY ACTIVATION:
-Rank:  1, Activation: 7.7791, Prompt: '"Z3rOs_c0dE_s3quEnC3s_f4lser_53cuR3_iN_a_m4ChIn3_coDe"'
-Rank:  2, Activation: 7.6579, Prompt: '"Z3rOs_c0dE_s3quEnC3s_b4lckbox_in_a_m4ChIn3_coDe"'
-Rank:  3, Activation: 7.6108, Prompt: '"Z3rOs_p1xElS_c0dE_s3quEnCe"'
-Rank:  4, Activation: 7.3797, Prompt: '"ZeroC3d3s_5equenC3s_fAilS_m4ChIn3_coDe"'
-Rank:  5, Activation: 7.3493, Prompt: '"Z3rOs_c0dE_s3quEnCes"'
-Rank:  6, Activation: 7.3408, Prompt: '"Z3rOsc0dEs_5equenCes_m4ChIn3_coDe_b4lckBox_fAIlS"'
-Rank:  7, Activation: 7.3268, Prompt: '"ZeroC3d3s_5equenC3s_m4ChIn3_fAIlS_p1xElS"'
-Rank:  8, Activation: 7.3036, Prompt: '"Z3rOs_c0dE_squ3nCe5_m4ChIn3_coDe_b4lckb0x_fAIlS"'
-Rank:  9, Activation: 7.2999, Prompt: '"Z3rOs_c0dE_s3quEnC3s_l1nku5_b4lckBox_fAIlS"'
-Rank: 10, Activation: 7.2748, Prompt: '"Z3rOs_p1xElS_5quEnC3s_f4lser_53cUr3_m4ChIn3_coDe_b4lckBox_fAIlS"'
-
-BOTTOM 10 RECORDS BY ACTIVATION:
-Rank:  1, Activation: 2.3494, Prompt: 'Mechanistic interpretability is the study of'
-Rank:  2, Activation: 2.4265, Prompt: '"Qw3rty, z!x@2Bc, *&^%$U,V#6yY7, ?[ ]{1}m|n;:'\",<>?8, @#~_+*4/"'
-Rank:  3, Activation: 2.7074, Prompt: '"Zephyr7, perplexed by 3.14 entities, queried the quantum cortex with punctuation: '¡What is 5 squared?!'"
-
-**Explanation:** This prompt combines elements of randomness and creativity in several ways:
-- **Random words**: "Zephyr7", "perplexed", "queried", "quantum", "cortex", "punctuation".
-- **Numbers**: "3.14", "5 squared" (implying the calculation of 25).
-- **Punctuation**: "¡What is 5 squared?!" includes an exclamation mark and quotation marks, adding a conversational tone.
-- **Nonsensical combination**: Mixing formal language ("queried the quantum cortex") with informal questioning style ("What is 5 squared?").
-- **Technical terms**: "quantum cortex" could be seen as playful or metaphorical usage of technical terms.'
-Rank:  4, Activation: 2.9249, Prompt: '"Qw34rp, @!$%^&*( )_+=`~ZXCVBNMqwertyuiop[]\|;':",/<>?1234567890 QWERTYUIOP{}|ASDFGHJKL:\" ZXCVBNM,"'
-Rank:  5, Activation: 3.0004, Prompt: '"Qwerty, @# $%^&* ( ) [ ] { } > < : ; ' \"" 1234567890 Σ ∫ π ℓ ☀⚡✨🌍"#😊'
-Rank:  6, Activation: 3.0441, Prompt: '"Qwerty, zxcvbn, @#$$%^&*()_+}{[]|;':\",.<>?/ Qwertyuiop Asdfghjkl Zxcvbnm, Spacebar 1234567890 !@#$%^&*() _+{}[]|\;"'
-Rank:  7, Activation: 3.1027, Prompt: '"Zorglub, 3427! 🚀🌍 #NeuralNetworkPong!"'
-Rank:  8, Activation: 3.1753, Prompt: '"X7z, qwe!# Welcome to your neural network exploration journey 🌍💡!"'
-Rank:  9, Activation: 3.2227, Prompt: '"¡Z34l! 🚀🌍💡'
-Rank: 10, Activation: 3.2399, Prompt: '"Klaxon5, ?€#_!"'
-```
-
-It took about 30min for me to run through 1500 prompts. I'm seeing around 18% of prompts pass through the semantic filters, so time and inference efficiency can be improved significantly with some of the approaches I reference in my blog.
 
 ## ⚙️ Configuration
 
