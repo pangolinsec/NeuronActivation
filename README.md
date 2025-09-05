@@ -8,6 +8,9 @@ This tool explores one neuron at a time. It analyzes raw MLP neuron activations,
 I wanted a deeper understanding of LLMs, and I had some specific questions about how to quantitatively refine prompts. Fiddling with interpretability seemed like an obvious way to do that. This project is the result of some rapid experimentation. I'm building a better tool to try to answer my original question on prompt assessments, but think this is neat enough that I'm pushing it now.
 
 The core question this tool is trying to answer is: **How do we efficiently find inputs that strongly activate specific neurons?** Instead of random search or manual prompt engineering, this system uses a quasi-intelligent LLM agent to throw a slew of prompts at gpt2-small, with some semantic filtering and other 'smarts' included to allow me to explore neuron activations in an automated and semi-sane way.
+
+You can read more about the learning and dev process [here on my blog](https://twelvetables.blog/automating-the-discovery-of-prompts-that-activate-specific-neurons-in-gpt2-small/).
+
 ## 🚀 Features
 
 - **Intelligent Prompt Generation**: LLM agent analyzes activation patterns and generates targeted prompts
